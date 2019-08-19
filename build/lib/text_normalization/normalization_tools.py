@@ -15,7 +15,6 @@ class Text:
         self.replaceSpecialChars()
         self.replaceNumsWithCommas()
         self.numbersToText()
-        self.writeFile()
 
     # define methods
 
@@ -84,8 +83,6 @@ class Text:
             text_no_percentage.append(line)
         text_no_slashes = []
         for line in text_no_percentage:
-            print(language_variables.slash)
-            print(self.language)
             line_ = line.replace('/', language_variables.slash[self.language])
             text_no_slashes.append(line_)
         self.text = text_no_slashes
@@ -169,11 +166,3 @@ class Text:
                 continue
             final_text.append(sent)
         self.text = final_text
-
-
-    def writeFile(self):
-        path_to_file, text_name = '/'.join(self.filename.split('/')[:-1]), self.filename.split('/')[-1]
-        out_text = 'normalized-' + text_name
-        with open(out_text,'w') as out_file:
-            for line in self.text:
-                out_file.write("%s\n" %line)
