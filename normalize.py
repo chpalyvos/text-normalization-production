@@ -1,6 +1,4 @@
-###!/usr/local/opt/python/bin/python3.7
-#import sys
-#print("If the interpreter doesn't work, replace the line below with: #!" + str(sys.executable))
+#!/usr/bin/env python3
 
 from text_normalization.normalization_tools import Text
 import argparse

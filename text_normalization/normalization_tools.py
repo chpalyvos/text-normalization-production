@@ -15,6 +15,8 @@ class Text:
         self.replaceSpecialChars()
         self.replaceNumsWithCommas()
         self.numbersToText()
+        self.textToSentences()
+        self.removeInvalidWords()
         self.writeFile()
 
     # define methods
@@ -84,8 +86,6 @@ class Text:
             text_no_percentage.append(line)
         text_no_slashes = []
         for line in text_no_percentage:
-            print(language_variables.slash)
-            print(self.language)
             line_ = line.replace('/', language_variables.slash[self.language])
             text_no_slashes.append(line_)
         self.text = text_no_slashes
@@ -93,12 +93,12 @@ class Text:
     def replaceNumsWithCommas(self):
         # Input Arg1: text is a list of strings that represent lines
         # Output: a list of strings in which no numbers with commas will exist
-        regExpr_no_pt = r'\b[0-9]+[,][0-9]+\b'
-        regExpr_pt = r'\b[0-9]+[.][0-9]+\b'
+        regexpr_no_pt = r'\b[0-9]+[,][0-9]+\b'
+        regexpr_pt = r'\b[0-9]+[.][0-9]+\b'
         text_no_commas = []
         for line in self.text:
-            matches_no_pt = re.findall(regExpr_no_pt, line)
-            matches_pt = re.findall(regExpr_pt,line)
+            matches_no_pt = re.findall(regexpr_no_pt, line)
+            matches_pt = re.findall(regexpr_pt,line)
             tmp = line
             if self.language != 'pt':
                 for match in matches_no_pt:
@@ -108,7 +108,6 @@ class Text:
                     tmp = tmp.replace(match, ''.join(match.split('.')))
             text_no_commas.append(tmp)
         self.text = text_no_commas
-
 
     def numbersToText(self):
         # Input Arg1: text is a list of strings that represent lines
@@ -138,7 +137,11 @@ class Text:
                 finally:
                     line_no_nums = line_no_nums + ' '
             text_no_nums.append(line_no_nums[:-1])
-        self.text = text_no_nums
+        final_text_no_commas = []
+        for line in text_no_nums:
+            tmp = line.replace(',', '')
+            final_text_no_commas.append(tmp)
+        self.text = final_text_no_commas
 
     def textToSentences(self):
         # Input: text is a list of strings without numbers that represent lines
@@ -170,10 +173,9 @@ class Text:
             final_text.append(sent)
         self.text = final_text
 
-
     def writeFile(self):
         path_to_file, text_name = '/'.join(self.filename.split('/')[:-1]), self.filename.split('/')[-1]
         out_text = 'normalized-' + text_name
-        with open(out_text,'w') as out_file:
+        with open(out_text, 'w') as out_file:
             for line in self.text:
-                out_file.write("%s\n" %line)
+                out_file.write("%s\n" % line)
