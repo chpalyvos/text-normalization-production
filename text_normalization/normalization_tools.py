@@ -146,11 +146,13 @@ class Text:
     def textToSentences(self):
         # Input: text is a list of strings without numbers that represent lines
         # Output: a list of strings that represent sentences
-        regex_pattern = '|'.join(map(re.escape, self.delimiters))
-        # print(regex_pattern)
-
-        sentenced_text = []
+        text_lower = []
         for line in self.text:
+            text_lower.append(line.lower())
+
+        regex_pattern = '|'.join(map(re.escape, self.delimiters))
+        sentenced_text = []
+        for line in text_lower:
             for sentence in re.split(regex_pattern, line):
                 sentenced_text.append(sentence)
         no_commas = []

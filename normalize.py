@@ -32,19 +32,19 @@ parser.add_argument('--delimiters',type=str)
 
 args = parser.parse_args()
 if args.text is None:
-    print('ERROR: Usage python3 normalize.py --text <path_to_text> --language <en OR fr OR pt OR es> --delimiters <a set of punctuation> ')
-    print('Example: python3 normalize.py --text ~/Desktop/text --language pt --delimiters .!?')
+    print('ERROR: Usage:  ./normalize.py --text <path_to_text> --language <en OR fr OR pt OR es> --delimiters <a set of punctuation> ')
+    print('Example: ./normalize.py --text ~/Desktop/text --language pt --delimiters .!?')
     print('Arguments language and delimiters are optional')
     exit(1)
 
 if (args.language is None) and (args.delimiters is None):
     my_text = Text(args.text)
 elif (args.language is None) and (args.delimiters is not None):
-    my_text = Text(args.text, sentence_delimiters= args.delimiters)
+    my_text = Text(args.text, sentence_delimiters=args.delimiters)
 elif (args.language is not None) and (args.delimiters is None):
-    my_text = Text(args.text, lang= args.lanuage)
+    my_text = Text(args.text, lang=args.language)
 else:
-    my_text = Text(args.text, lang=args.language, sentence_delimiters= args.delimiters)
+    my_text = Text(args.text, lang=args.language, sentence_delimiters=args.delimiters)
 
 
 

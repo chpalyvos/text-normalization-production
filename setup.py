@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="text_normalization",
-    version="0.0.1",
+    version="0.0.2",
     author="Christos Palyvos",
     author_email="chpalyvos@gmail.com",
     description="A text normalization package",
